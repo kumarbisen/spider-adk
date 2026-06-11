@@ -42,6 +42,7 @@ export async function kickoff<TOutput = unknown>(input:{
     messages,
     model:agent.model,
     temperature:agent.temperature,
+    responseSchema: task.outputSchema,
     tools: tools?.list().map(tool => ({
       name:tool.name,
       description: tool.description,
@@ -57,19 +58,28 @@ export async function kickoff<TOutput = unknown>(input:{
     const schema = task.outputSchema ?? defaultOutputSchema;
     const candidate =
       typeof response.content === "string"
-      ? (response.content) : response.content
+      ? safeJsonParse(response.content) : response.content
 
-      parsed = schema.parse(candidate);
+    parsed = schema.parse(candidate);
 
   }
 
   return parsed as TOutput;
 }
 
+/** Fallback parser for providers that don't support native structured output. */
 function safeJsonParse(value: string): unknown {
   try {
     return JSON.parse(value);
   } catch {
-    return value
+    try {
+      const match = value.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+      if (match && match[1]) {
+        return JSON.parse(match[1]);
+      }
+    } catch {
+      // ignore
+    }
+    return value;
   }
 }

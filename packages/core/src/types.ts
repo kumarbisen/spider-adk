@@ -50,6 +50,7 @@ export interface LLMRequest {
   model?: string | undefined;
   temperature?: number | undefined;
   tools?: ToolDefinition[] | undefined;
+  responseSchema?: ZodTypeAny | undefined;
 }
 
 export interface ToolDefinition {
