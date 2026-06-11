@@ -15,6 +15,10 @@
     "@agent-framework/core": "workspace:*",
     "@agent-framework/llm": "workspace:*",
     "@agent-framework/tools": "workspace:*",
+    "dotenv": "^17.4.2",
     "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3"
   }
 }

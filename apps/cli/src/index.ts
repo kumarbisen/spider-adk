@@ -3,6 +3,7 @@ import { createAgent } from "@agent-framework/core";
 import { createTask, kickoff } from "@agent-framework/core";
 import { webSearchTool, ToolRegistry } from "@agent-framework/tools";
 import { OpenAIProvider } from "@agent-framework/llm";
+import { configDotenv } from "dotenv";
 
 async function run() {
   const apiKey = process.env.OPENAI_API_KEY;
