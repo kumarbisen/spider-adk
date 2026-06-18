@@ -18,9 +18,6 @@ async function run() {
 
     const agentRole = roleInput.trim() || "Research Assistant";
 
-    const taskDescription = await r1.question("What task should the agent perform? ");
-
-
     const llm = LLMFactory.create(providerType);
 
     const registry = new ToolRegistry();
@@ -38,25 +35,32 @@ async function run() {
       tools: ["web_search"]
     });
 
+    while (true) {
+      const taskDescription = await r1.question("\nWhat task should the agent perform? (or type 'exit' to quit): ");
+      if (taskDescription.trim().toLowerCase() === 'exit') {
+        console.log("Goodbye!");
+        break;
+      }
 
-    const task = createTask({
-      agent,
-      description: taskDescription.trim() || "Explain what a TypeScript agent framework needs in one short JSON object.",
-      retries: 1
-    });
-    console.log(`\nStarting task with ${providerType} as a ${agentRole}...\n`);
+      const task = createTask({
+        agent,
+        description: taskDescription.trim() || "Explain what a TypeScript agent framework needs in one short JSON object.",
+        retries: 1
+      });
+      console.log(`\nStarting task with ${providerType} as a ${agentRole}...\n`);
 
 
-    const output = await kickoff({
-      agent,
-      task,
-      llm,
-      tools: registry
-    });
+      const output = await kickoff({
+        agent,
+        task,
+        llm,
+        tools: registry
+      });
 
-    console.log("\n--- RESULT ---");
-    // Just print the raw text instead of using JSON.stringify
-    console.log(output);
+      console.log("\n--- RESULT ---");
+      // Just print the raw text instead of using JSON.stringify
+      console.log(output);
+    }
   } finally {
 
     r1.close();
