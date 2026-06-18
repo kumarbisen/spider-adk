@@ -1,6 +1,6 @@
 import {z} from 'zod';
 import type {Agent, LLMRequest, LLMResponse, Task, LLMProvider} from "./types.js"
-import {ToolRegistry} from "@agent-framework/tools";
+import {ToolRegistry} from "@spider-adk/tools";
 
 
 // creates a scheme that accepts anything

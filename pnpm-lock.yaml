@@ -20,13 +20,13 @@ importers:
 
   apps/cli:
     dependencies:
-      '@agent-framework/core':
+      '@spider-adk/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@agent-framework/llm':
+      '@spider-adk/llm':
         specifier: workspace:*
         version: link:../../packages/llm
-      '@agent-framework/tools':
+      '@spider-adk/tools':
         specifier: workspace:*
         version: link:../../packages/tools
       dotenv:
@@ -44,7 +44,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@agent-framework/tools':
+      '@spider-adk/tools':
         specifier: workspace:*
         version: link:../tools
       zod:
@@ -53,12 +53,12 @@ importers:
 
   packages/llm:
     dependencies:
-      '@agent-framework/core':
-        specifier: workspace:*
-        version: link:../core
       '@google/generative-ai':
         specifier: ^0.24.1
         version: 0.24.1
+      '@spider-adk/core':
+        specifier: workspace:*
+        version: link:../core
       groq-sdk:
         specifier: ^1.2.1
         version: 1.2.1

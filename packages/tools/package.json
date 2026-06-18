@@ -1,5 +1,5 @@
 {
-  "name": "@agent-framework/tools",
+  "name": "@spider-adk/tools",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

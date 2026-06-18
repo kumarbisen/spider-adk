@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { LLMProvider } from "./provider.js";
-import type { LLMRequest, LLMResponse } from "@agent-framework/core";
+import type { LLMRequest, LLMResponse } from "@spider-adk/core";
 
 
 export class GeminiProvider implements LLMProvider {

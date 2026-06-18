@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { createAgent, createTask, kickoff } from "@agent-framework/core";
-import { webSearchTool, ToolRegistry } from "@agent-framework/tools";
-import { LLMFactory } from "@agent-framework/llm";
+import { createAgent, createTask, kickoff } from "@spider-adk/core";
+import { webSearchTool, ToolRegistry } from "@spider-adk/tools";
+import { LLMFactory } from "@spider-adk/llm";
 import dotenv from "dotenv";
 import * as readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";

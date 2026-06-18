@@ -1,8 +1,8 @@
-# 🤖 Agent Framework
+# 🤖 Spider ADK
 
 > **The open-source, TypeScript-native alternative to CrewAI.**
 
-Agent Framework is a powerful, modular, and fully typed framework for building, orchestrating, and managing autonomous AI agents. Designed specifically for the TypeScript ecosystem, it brings the concepts of role-based AI collaboration (Agents, Tasks, Crews) into a robust, scalable architecture.
+Spider ADK is a powerful, modular, and fully typed framework for building, orchestrating, and managing autonomous AI agents. Designed specifically for the TypeScript ecosystem, it brings the concepts of role-based AI collaboration (Agents, Tasks, Crews) into a robust, scalable architecture.
 
 ---
 
@@ -16,13 +16,13 @@ Agent Framework is a powerful, modular, and fully typed framework for building, 
 
 ## 🏗️ Architecture
 
-Agent Framework is structured as a `pnpm` workspace containing multiple standalone packages:
+Spider ADK is structured as a `pnpm` workspace containing multiple standalone packages:
 
-- **`@agent-framework/core`**: The orchestration engine. Contains definitions and runtimes for Agents, Tasks, and Flows.
-- **`@agent-framework/llm`**: LLM provider integrations (e.g., OpenAI). 
-- **`@agent-framework/tools`**: Tool execution and registry system. Includes built-ins like `webSearchTool`.
-- **`@agent-framework/memory`**: Short-term and long-term memory stores for agents.
-- **`@agent-framework/cli`**: Scaffolding and runner utilities.
+- **`@spider-adk/core`**: The orchestration engine. Contains definitions and runtimes for Agents, Tasks, and Flows.
+- **`@spider-adk/llm`**: LLM provider integrations (e.g., OpenAI). 
+- **`@spider-adk/tools`**: Tool execution and registry system. Includes built-ins like `webSearchTool`.
+- **`@spider-adk/memory`**: Short-term and long-term memory stores for agents.
+- **`@spider-adk/cli`**: Scaffolding and runner utilities.
 
 ## 🚀 Getting Started
 
@@ -31,8 +31,8 @@ Agent Framework is structured as a `pnpm` workspace containing multiple standalo
 Clone the repository and install dependencies using `pnpm`:
 
 ```bash
-git clone https://github.com/yourusername/agent-framework.git
-cd agent-framework
+git clone https://github.com/yourusername/spider-adk.git
+cd spider-adk
 pnpm install
 pnpm build
 ```
@@ -43,9 +43,9 @@ Creating an AI workflow is incredibly simple. Below is an example of spinning up
 
 ```typescript
 import { z } from "zod";
-import { createAgent, createTask, kickoff } from "@agent-framework/core";
-import { OpenAIProvider } from "@agent-framework/llm";
-import { webSearchTool, ToolRegistry } from "@agent-framework/tools";
+import { createAgent, createTask, kickoff } from "@spider-adk/core";
+import { OpenAIProvider } from "@spider-adk/llm";
+import { webSearchTool, ToolRegistry } from "@spider-adk/tools";
 
 // 1. Initialize Tools
 const registry = new ToolRegistry();

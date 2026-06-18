@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import type { LLMProvider } from "./provider.js";
-import type { LLMRequest, LLMResponse } from "@agent-framework/core";
+import type { LLMRequest, LLMResponse } from "@spider-adk/core";
 
 export class OpenAIProvider implements LLMProvider {
   private client: OpenAI;

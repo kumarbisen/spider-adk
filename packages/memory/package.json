@@ -1,5 +1,5 @@
 {
-  "name": "@agent-framework/memory",
+  "name": "@spider-adk/memory",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

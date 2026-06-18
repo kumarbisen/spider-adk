@@ -1,9 +1,9 @@
 {
-  "name": "@agent-framework/cli",
+  "name": "@spider-adk/cli",
   "version": "0.1.0",
   "type": "module",
   "bin": {
-    "agent-framework": "./dist/index.js"
+    "spider-adk": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -12,9 +12,9 @@
     "test": "echo \"no tests yet\""
   },
   "dependencies": {
-    "@agent-framework/core": "workspace:*",
-    "@agent-framework/llm": "workspace:*",
-    "@agent-framework/tools": "workspace:*",
+    "@spider-adk/core": "workspace:*",
+    "@spider-adk/llm": "workspace:*",
+    "@spider-adk/tools": "workspace:*",
     "dotenv": "^17.4.2",
     "zod": "^3.25.67"
   },

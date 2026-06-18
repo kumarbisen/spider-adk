@@ -1,5 +1,5 @@
 {
-  "name": "@agent-framework/core",
+  "name": "@spider-adk/core",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "zod": "^3.25.67",
-    "@agent-framework/tools": "workspace:*"
+    "@spider-adk/tools": "workspace:*"
   }
 }
