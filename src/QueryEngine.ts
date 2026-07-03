@@ -1,4 +1,5 @@
 import { ToolRegistry } from './tools';
+import { getSystemContext } from './context';
 
 // Interface for OpenAI, Anthropic, or local LLMs
 export interface LLMProvider {
@@ -47,6 +48,11 @@ export class QueryEngine {
   async submitMessage(prompt: string): Promise<TurnResult> {
     if (this.messages.length >= this.config.maxTurns) {
       return { prompt, output: "Max turns reached.", usage: this.totalUsage, stopReason: 'max_turns_reached' };
+    }
+
+    if (this.messages.length === 0) {
+      const systemContext = await getSystemContext();
+      this.messages.push({ role: 'system', content: systemContext });
     }
 
     const response = await this.provider.query(prompt, this.messages, this.tools);

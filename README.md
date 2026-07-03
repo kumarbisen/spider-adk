@@ -12,7 +12,7 @@ Spider ADK is a powerful, extensible framework for building an interactive CLI-b
 - **Skill System**: Extend agent capabilities dynamically with custom skills (`src/skills/`).
 - **Tool Registry**: Easily equip your agent with standard or custom tools (file reading, web searching, bash commands).
 - **Slash Commands**: Rapidly execute common workflows via intuitive slash commands.
-- **LLM Query Engine**: Core integration with LLM providers (Anthropic by default) to power agent reasoning.
+- **LLM Query Engine**: Core integration with pluggable providers (Groq and Gemini Studio) to power agent reasoning.
 - **Context Management**: Collects and organizes system and user context dynamically.
 - **Cost Tracking**: Built-in token and cost tracking for transparent usage.
 - **Extensible Architecture**: Support for plugins, keybindings, Vim mode, and more.
@@ -66,6 +66,48 @@ src/
 For more inspiration, see the original concept: [claude-code](https://github.com/hkirat/claude-code).
 
 ## 🚀 Getting Started
+
+### Provider Setup (Groq or Gemini Studio)
+
+This project now uses an OpenAI-compatible provider layer and supports:
+
+- `groq` via `https://api.groq.com/openai/v1`
+- `gemini` (Google AI Studio) via `https://generativelanguage.googleapis.com/v1beta/openai/`
+
+Create a `.env` file in the project root and add one of the following:
+
+```bash
+# Choose one: groq | gemini
+LLM_PROVIDER=groq
+
+# For Groq
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=llama-3.3-70b-versatile
+
+# For Gemini Studio (Google AI Studio)
+# LLM_PROVIDER=gemini
+# GOOGLE_API_KEY=your_google_ai_studio_key
+# GEMINI_MODEL=gemini-2.5-flash
+```
+
+Then construct the engine with the provider factory:
+
+```ts
+import { QueryEngine } from './QueryEngine';
+import { ToolRegistry } from './tools';
+import { createProviderFromEnv } from './services/providerFactory';
+
+const tools = new ToolRegistry();
+const provider = createProviderFromEnv();
+const engine = new QueryEngine(provider, tools);
+```
+
+Files added for provider support:
+
+- `src/services/OpenAICompatibleProvider.ts`
+- `src/services/GroqProvider.ts`
+- `src/services/GeminiStudioProvider.ts`
+- `src/services/providerFactory.ts`
 
 ### Installation
 

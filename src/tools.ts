@@ -12,7 +12,7 @@ export class ToolRegistry {
     return Array.from(this.tools.values()).map((tool) => ({
       name: tool.name,
       description: tool.description,
-      input_schema: zodToJsonSchema(tool.schema),
+      input_schema: zodToJsonSchema(tool.schema as any),
     }));
   }
 
