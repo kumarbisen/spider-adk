@@ -4,12 +4,12 @@ import TextInput from 'ink-text-input';
 
 export const App = () => {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<{role: string, content: string}[]>([]);
+  const [messages, setMessages] = useState<{ role: string, content: string }[]>([]);
 
   const handleSubmit = (value: string) => {
     // In a real loop, you would pass `value` to QueryEngine.submitMessage() here.
     setMessages(prev => [
-      ...prev, 
+      ...prev,
       { role: 'user', content: value },
       { role: 'agent', content: `Received: ${value}` }
     ]);
@@ -19,7 +19,7 @@ export const App = () => {
   return (
     <Box flexDirection="column" padding={1} borderStyle="round" borderColor="blue">
       <Box flexDirection="column" marginBottom={1}>
-        <Text bold color="cyan">🤖 Spider ADK (Interactive Mode)</Text>
+        <Text bold color="cyan"> Spider ADK (Interactive Mode)</Text>
         <Text dimColor>Type /help to see slash commands.</Text>
       </Box>
 
@@ -36,10 +36,10 @@ export const App = () => {
 
       <Box>
         <Text color="green" bold>{'❯ '} </Text>
-        <TextInput 
-          value={input} 
-          onChange={setInput} 
-          onSubmit={handleSubmit} 
+        <TextInput
+          value={input}
+          onChange={setInput}
+          onSubmit={handleSubmit}
         />
       </Box>
     </Box>
