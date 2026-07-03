@@ -1,28 +1,69 @@
 # 🤖 Spider ADK
 
-> **The open-source, TypeScript-native alternative to CrewAI.**
+> **An interactive, terminal-based AI agent framework inspired by Claude Code.**
 
-Spider ADK is a powerful, modular, and fully typed framework for building, orchestrating, and managing autonomous AI agents. Designed specifically for the TypeScript ecosystem, it brings the concepts of role-based AI collaboration (Agents, Tasks, Crews) into a robust, scalable architecture.
+Spider ADK is a powerful, extensible framework for building an interactive CLI-based AI coding assistant and agent. It provides a robust architecture for tools, slash commands, plugins, and skills, letting you build a highly capable assistant that can navigate code, run terminal commands, and reason through tasks.
 
 ---
 
 ## ✨ Features
 
-- **TypeScript Native**: Full end-to-end type safety, eliminating runtime guesswork. Zod schemas are treated as first-class citizens for structured data extraction.
-- **Role-Based Orchestration**: Design agents with distinct roles, goals, and backstories to achieve complex multi-step workflows.
-- **Modular Monorepo Architecture**: Cleanly decoupled packages. Swap out memory stores, LLM providers, and tools effortlessly.
-- **Bring Your Own LLM (BYO-LLM)**: Easy-to-implement Provider interface. Defaults to OpenAI, but extendable to any provider.
-- **Tool Registry**: Easily equip your agents with custom tools.
+- **Interactive CLI Interface**: Built with Ink and React, providing a rich, terminal-native UI.
+- **Skill System**: Extend agent capabilities dynamically with custom skills (`src/skills/`).
+- **Tool Registry**: Easily equip your agent with standard or custom tools (file reading, web searching, bash commands).
+- **Slash Commands**: Rapidly execute common workflows via intuitive slash commands.
+- **LLM Query Engine**: Core integration with LLM providers (Anthropic by default) to power agent reasoning.
+- **Context Management**: Collects and organizes system and user context dynamically.
+- **Cost Tracking**: Built-in token and cost tracking for transparent usage.
+- **Extensible Architecture**: Support for plugins, keybindings, Vim mode, and more.
 
 ## 🏗️ Architecture
 
-Spider ADK is structured as a `pnpm` workspace containing multiple standalone packages:
+The codebase is structured to provide a comprehensive interactive agent environment:
 
-- **`@spider-adk/core`**: The orchestration engine. Contains definitions and runtimes for Agents, Tasks, and Flows.
-- **`@spider-adk/llm`**: LLM provider integrations (e.g., OpenAI). 
-- **`@spider-adk/tools`**: Tool execution and registry system. Includes built-ins like `webSearchTool`.
-- **`@spider-adk/memory`**: Short-term and long-term memory stores for agents.
-- **`@spider-adk/cli`**: Scaffolding and runner utilities.
+```text
+src/
+├── main.tsx                 # Entrypoint (Commander.js-based CLI parser)
+├── commands.ts              # Command registry
+├── tools.ts                 # Tool registry
+├── Tool.ts                  # Tool type definitions
+├── QueryEngine.ts           # LLM query engine (core Anthropic API caller)
+├── context.ts               # System/user context collection
+├── cost-tracker.ts          # Token cost tracking
+│
+├── commands/                # Slash command implementations (~50)
+├── tools/                   # Agent tool implementations (~40)
+├── components/              # Ink UI components (~140)
+├── hooks/                   # React hooks
+├── services/                # External service integrations
+├── screens/                 # Full-screen UIs (Doctor, REPL, Resume)
+├── types/                   # TypeScript type definitions
+├── utils/                   # Utility functions
+│
+├── bridge/                  # IDE integration bridge (VS Code, JetBrains)
+├── coordinator/             # Multi-agent coordinator
+├── plugins/                 # Plugin system
+├── skills/                  # Skill system
+├── keybindings/             # Keybinding configuration
+├── vim/                     # Vim mode
+├── voice/                   # Voice input
+├── remote/                  # Remote sessions
+├── server/                  # Server mode
+├── memdir/                  # Memory directory (persistent memory)
+├── tasks/                   # Task management
+├── state/                   # State management
+├── migrations/              # Config migrations
+├── schemas/                 # Config schemas (Zod)
+├── entrypoints/             # Initialization logic
+├── ink/                     # Ink renderer wrapper
+├── buddy/                   # Companion sprite (Easter egg)
+├── native-ts/               # Native TypeScript utils
+├── outputStyles/            # Output styling
+├── query/                   # Query pipeline
+└── upstreamproxy/           # Proxy configuration
+```
+
+For more inspiration, see the original concept: [claude-code](https://github.com/hkirat/claude-code).
 
 ## 🚀 Getting Started
 
@@ -37,67 +78,17 @@ pnpm install
 pnpm build
 ```
 
-### Quick Start
+### Running the Agent
 
-Creating an AI workflow is incredibly simple. Below is an example of spinning up a Research Agent and assigning it a structured task.
+Start the interactive session:
 
-```typescript
-import { z } from "zod";
-import { createAgent, createTask, kickoff } from "@spider-adk/core";
-import { OpenAIProvider } from "@spider-adk/llm";
-import { webSearchTool, ToolRegistry } from "@spider-adk/tools";
-
-// 1. Initialize Tools
-const registry = new ToolRegistry();
-registry.register(webSearchTool);
-
-// 2. Define your Agent
-const agent = createAgent({
-  role: "Research Assistant",
-  goal: "Return a concise structured answer",
-  backstory: "You work carefully and use tools when helpful.",
-  model: "gpt-4o-mini",
-  temperature: 0.2,
-  tools: ["web_search"]
-});
-
-// 3. Define the Task (with structured output!)
-const task = createTask({
-  agent,
-  description: "Explain what a TypeScript agent framework needs in one short JSON object.",
-  outputSchema: z.object({
-    title: z.string(),
-    summary: z.string()
-  }),
-  retries: 1
-});
-
-// 4. Initialize the LLM Provider
-const llm = new OpenAIProvider(process.env.OPENAI_API_KEY!);
-
-// 5. Kickoff the execution
-const result = await kickoff({
-  agent,
-  task,
-  llm,
-  tools: registry
-});
-
-console.log(result); 
-// Output is fully strongly-typed based on your Zod schema!
+```bash
+pnpm dev
 ```
-
-## 🛠️ Development
-
-### Available Scripts
-
-- `pnpm build`: Build all packages across the monorepo.
-- `pnpm dev`: Run the local testing application (`apps/cli`).
-- `pnpm typecheck`: Run TypeScript compilation checks without emitting files.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Whether it's adding new LLM providers, building new standard tools, or fixing bugs, feel free to open a PR.
+Contributions are welcome! Whether it's adding new tools, enhancing the Ink UI, or creating new slash commands, feel free to open a PR.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
